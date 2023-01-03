@@ -12,7 +12,6 @@ const imagemin = require("gulp-imagemin");
 const webp = require("gulp-webp");
 const svgstore = require("gulp-svgstore");
 const del = require("del");
-const { reload } = require("browser-sync");
 const sync = require("browser-sync").create();
 
 // Styles
@@ -140,9 +139,9 @@ exports.server = server;
 // Watcher
 
 const watcher = () => {
-  gulp.watch("source/less/**/*.less", gulp.series(styles));
-  gulp.watch("source/js/script.js", gulp.series(scripts));
-  gulp.watch("source/*.html", gulp.series(html, reload));
+  gulp.watch("source/sass/**/*.scss", gulp.series(styles));
+  gulp.watch("source/js/app.js", gulp.series(scripts));
+  gulp.watch("source/*.html", gulp.series(html, sync.reload));
 }
 
 // Build
@@ -178,4 +177,5 @@ exports.default = gulp.series(
   gulp.series(
     server,
     watcher
-  ));
+  )
+);
